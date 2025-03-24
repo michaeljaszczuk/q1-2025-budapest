@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Question Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #question {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Offsite q1 2025 Budapest</h1>
+    <button id="generate-btn">Let's talk!</button>
+    <div id="question"></div>
+
+    <script>
+        const questions = [
+            "Where did you grow up?",
+            "What’s your favorite childhood memory?",
+            "Do you have any siblings?",
+            "What’s a goal you achieved recently?",
+            "If you could live anywhere in the world for a year, where would it be?",
+            "What hobbies do you enjoy?",
+            "Do you prefer reading books or watching movies?",
+            "What’s the last book you read?",
+            "If you could learn a new skill instantly, what would it be?",
+            "What’s your favorite way to spend a weekend?",
+            "What’s your favorite cuisine?",
+            "Do you have a favorite restaurant?",
+            "What’s the weirdest food you’ve ever tried?",
+            "Are you more of a coffee person or a tea person?",
+            "What’s your go-to comfort food?",
+            "What’s your current role at the company?",
+            "What inspired you to choose your career path?",
+            "What’s the best advice you’ve received in your career?",
+            "Where do you see yourself in 5 years?",
+            "What’s a project you’re particularly proud of?",
+            "If you could have dinner with any three people, dead or alive, who would they be?",
+            "What superpower would you choose and why?",
+            "What’s a talent you wish you had?",
+            "If you could travel back in time, which era would you visit?",
+            "What’s your guilty pleasure TV show?",
+            "What’s a dream you’ve always had but haven’t accomplished yet?",
+            "If money were no object, what would you do for work?",
+            "What’s a cause you’re passionate about?",
+            "How would you define success?",
+            "If you had the chance to start a new business, what would it be?",
+            "What’s your favorite vacation destination?",
+            "Do you prefer mountains or beaches?",
+            "What’s the most interesting place you’ve traveled to?",
+            "If you could take a trip anywhere right now, where would it be?",
+            "What’s a travel mishap you’ve experienced?",
+            "What quality do you value most in a friend?",
+            "How do you like to celebrate milestones with friends?",
+            "What’s an important lesson you’ve learned from a relationship?",
+            "Do you believe in love at first sight?",
+            "What’s your ideal way to spend time with friends?",
+            "What’s a social issue you care about?",
+            "How do you stay informed about current events?",
+            "What’s your opinion on work-life balance?",
+            "How important is team collaboration to you?",
+            "What’s a trend you don’t understand?",
+            "If you were an animal, what would you be and why?",
+            "What would you do if you won the lottery?",
+            "If you could be any fictional character, who would you choose?",
+            "If you could instantly become an expert at something, what would it be?",
+            "What would you do if you had a day completely to yourself?",
+            "What’s your favorite movie of all time?",
+            "What genre of music do you enjoy most?",
+            "If you could attend any concert, past or present, which would it be?",
+            "What’s a show you’re currently watching?",
+            "What’s a song that always puts you in a good mood?",
+            "What’s your favorite gadget or piece of technology?",
+            "How do you think technology will change our lives in the next 10 years?",
+            "Are you a fan of social media? Why or why not?",
+            "What’s your opinion on remote work vs. in-office work?",
+            "What’s an app you can’t live without?",
+            "What’s a piece of advice you would give your younger self?",
+            "How do you handle stress?",
+            "What’s a mistake you learned from?",
+            "What’s something new you tried recently that you enjoyed?",
+            "How do you celebrate your successes?",
+            "What principles guide your life?",
+            "What's your definition of happiness?",
+            "How do you handle disagreements with others?",
+            "What do you believe is the key to a successful relationship?",
+            "What’s a personal value you’re proud of?",
+            "Do you believe in aliens?",
+            "What’s the strangest thing you’ve ever seen?",
+            "What’s your most unforgettable experience?",
+            "If you could switch lives with someone for a day, who would it be?",
+            "What are you most curious about right now?",
+            "What’s a recent trend you find interesting?",
+            "What’s your favorite family tradition?",
+            "How do you like to unwind after a long day?",
+            "What’s your favorite season and why?",
+            "If you could have one wish, what would it be?",
+            "What’s your favorite quote or motto?",
+            "What’s an item on your bucket list?",
+            "If you could change one thing about the world, what would it be?",
+            "What’s your proudest accomplishment?",
+            "What’s something that always makes you smile?",
+            "How do you define friendship?",
+            "What does your dream home look like?",
+            "What’s your favorite way to give back to the community?",
+            "What’s something you want to be remembered for?",
+            "What’s a piece of technology you’re excited about?",
+            "Who has been the biggest influence in your life?",
+            "What’s something you believe everyone should try at least once?",
+            "What’s your favorite form of self-care?",
+            "If you could rewrite history, what event would you change?",
+            "What’s one thing you would tell your future self?",
+            "What do you think is the most important quality in a leader?",
+            "What’s a challenge you’d like to tackle in your personal life?",
+            "If you could master any instrument, which would you choose?",
+            "What’s a misconception people have about you?",
+            "What activity brings you the most joy?",
+            "How would you describe your sense of humor?",
+            "What’s one goal you have for the upcoming year?",
+            "If you could pick a theme song for your life, what would it be?",
+            "What’s your favorite childhood game?",
+            "How do you find motivation on tough days?",
+            "What’s something you’re really good at?",
+            "What’s a lesson that took you a long time to learn?",
+            "What’s your dream job?",
+            "If you could create a holiday, what would it celebrate?",
+            "What’s something you’d like to change about yourself?",
+            "What’s your favorite way to stay active?",
+            "How do you approach problem solving?",
+            "What’s a factor that influences your decisions?",
+            "What do you enjoy most about working in your field?",
+            "If you could have any animal as a pet, what would it be?",
+            "What are you currently working on improving in your life?",
+            "What’s your favorite way to express creativity?",
+            "How do you like to start your day?",
+            "What’s a life lesson you learned the hard way?",
+            "What’s something you’d like people to know about you?"
+        ];
+
+        document.getElementById('generate-btn').addEventListener('click', function() {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            const question = questions[randomIndex];
+            document.getElementById('question').innerText = question;
+        });
+    </script>
+</body>
+</html>
